@@ -73,7 +73,7 @@ public class View{
 
         switch (fzc){
             case 1: recepcionistaLogin(); break;
-            case 2: deixarRecado(); break;
+            case 2: //deixarRecado(); break;
             case 3: fechar(); break;
         }
     }
@@ -82,11 +82,11 @@ public class View{
         limparTela();
         topo();
         System.out.println("---LOGIN-RECEPCIONISTA---");
-        System.out.print("Digite sua matricula");
+        System.out.print("Digite sua matricula: ");
         int matricula = sc.nextInt();
         sc.nextLine();
         System.out.println();
-        System.out.print("Digite sua senha");
+        System.out.print("Digite sua senha: ");
         String senha = sc.nextLine();
 
         Pessoa p = Login.recpAutenticar(matricula, senha);
@@ -104,11 +104,11 @@ public class View{
         limparTela();
         topo();
         System.out.println("---LOGIN---");
-        System.out.print("Digite sua matricula");
+        System.out.print("Digite sua matricula: ");
         int matricula = sc.nextInt();
         sc.nextLine();
         System.out.println();
-        System.out.print("Digite sua senha");
+        System.out.print("Digite sua senha: ");
         String senha = sc.nextLine();
 
         Pessoa p = Login.autenticar(matricula, senha);
@@ -150,15 +150,15 @@ public class View{
             init();
         }
         switch (numero){
-            case 1: a.verPlano(); break;
-            case 2: a.verMeuTreino(); break;
-            case 3: a.marcarTreinoComoFeito(); break;
-            case 4: a.fazerDenunciaAnonima(); break;
-            case 5: a.cancelarMatricula(); break;
-            case 6: a.verDataDeVencimento(); break;
-            case 7: a.fazerPagamento(); break;
-            case 8: a.verMatricula(); break;
-            case 9: a.alterarSenha(); break;
+            case 1: //a.verPlano(); break;
+            case 2: //a.verMeuTreino(); break;
+            case 3: //a.marcarTreinoComoFeito(); break;
+            case 4: //a.fazerDenunciaAnonima(); break;
+            case 5: //a.cancelarMatricula(); break;
+            case 6: //a.verDataDeVencimento(); break;
+            case 7: //a.fazerPagamento(); break;
+            case 8: //a.verMatricula(); break;
+            case 9: //a.alterarSenha(); break;
             case 10: fechar(); break;
         }
     }
@@ -183,15 +183,15 @@ public class View{
             init();
         }
         switch (numero){
-            case 1: i.verMeuSalario(); break;
-            case 2: i.cadastrarAlunoInst(); break;
-            case 3: i.alterarDadosAluno(); break;
-            case 4: i.fazerDenunciaAnonima(); break;
-            case 5: i.cancelarVinculo(); break;
-            case 6: i.deixarAvisoParaRecepcionista(); break;
-            case 7: i.verMatricula(); break;
-            case 8: i.alterarSenha(); break;
-            case 7: fechar(); break;
+            case 1: //i.verMeuSalario(); break;
+            case 2: //i.cadastrarAlunoInst(); break;
+            case 3: //i.alterarDadosAluno(); break;
+            case 4: //i.fazerDenunciaAnonima(); break;
+            case 5: //i.cancelarVinculo(); break;
+            case 6: //i.deixarAvisoParaRecepcionista(); break;
+            case 7: //i.verMatricula(); break;
+            case 8: //i.alterarSenha(); break;
+            case 9: fechar(); break;
         }
     }
 
@@ -224,23 +224,23 @@ public class View{
             init();
         }
         switch (numero){
-            case 1: r.verMeuSalario(); break;
+            case 1: //r.verMeuSalario(); break;
             case 2: r.cadastrarAluno(); break;
-            case 3: r.alterarDadosAluno(); break;
-            case 4: r.fazerDenunciaAnonima(); break;
-            case 5: r.cancelarVinculo(); break;
-            case 6: r.deixarAvisoParaRecepcionista(); break;
-            case 7: r.listarAlunos(); break;
-            case 8: r.listarInstrutores(); break;
-            case 9: r.listarRecepcionistas(); break;
-            case 10: r.listarPlanos(); break;
-            case 11: r.removerAluno(); break;
-            case 12: r.removerInstrutor(); break;
-            case 13: r.removerRecepcionista(); break;
-            case 14: r.adicionarPlano(); break;
-            case 15: r.excluirPlano(); break;
-            case 16: r.cadastrarInstrutor(); break;
-            case 17: r.cadastrarRecepcionista(); break;
+            case 3: //r.alterarDadosAluno(); break;
+            case 4: //r.fazerDenunciaAnonima(); break;
+            case 5: //r.cancelarVinculo(); break;
+            case 6: //r.deixarAvisoParaRecepcionista(); break;
+            case 7: //r.listarAlunos(); break;
+            case 8: //r.listarInstrutores(); break;
+            case 9: //r.listarRecepcionistas(); break;
+            case 10: //r.listarPlanos(); break;
+            case 11: //r.removerAluno(); break;
+            case 12: //r.removerInstrutor(); break;
+            case 13: //r.removerRecepcionista(); break;
+            case 14: //r.adicionarPlano(); break;
+            case 15: //r.excluirPlano(); break;
+            case 16: //r.cadastrarInstrutor(); break;
+            case 17: //r.cadastrarRecepcionista(); break;
             case 18: fechar(); break;
         }
     }

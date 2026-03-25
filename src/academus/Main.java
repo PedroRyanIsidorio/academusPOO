@@ -2,6 +2,7 @@ package academus;
 
 import academus.modelo.Pessoa;
 import academus.modelo.Aluno;
+import academus.modelo.Recepcionista;
 import academus.view.View;
 import academus.repositorio.AlunoRepositorio;
 
@@ -12,6 +13,10 @@ public class Main{
 
         View view = new View();
 
+        Recepcionista adm = new Recepcionista("admin");
+        adm.noUseSetMatricula(1234);
+
+        Login.getRecepcionistaRepo().adicionar(adm);
 
         Aluno a = new Aluno("123");
         Login.getAlunoRepo().adicionar(a);

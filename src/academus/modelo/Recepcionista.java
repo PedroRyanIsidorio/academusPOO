@@ -13,14 +13,21 @@ public class Recepcionista extends Pessoa{
     String mat = Integer.toString(super.getMatricula()) + "003" + Integer.toString(random.nextInt(90)+10);
     private int matricula = Integer.parseInt(mat);
 
-    public Recepcionista(String nome, double altura, double peso, int idade, boolean sexo, String senha, int matricula){
+    public Recepcionista(String senha){
+        super(senha);
+    }
+
+    public Recepcionista(String nome, double altura, double peso, int idade, boolean sexo, String senha){
         super(nome, altura, peso, idade, sexo, senha);
-        this.matricula = matricula;
     }
 
     @Override
     public int getMatricula(){
         return matricula;
+    }
+
+    public void noUseSetMatricula(int matricula){
+        this.matricula = matricula;
     }
 
     //String nome, double altura, double peso, int idade, boolean sexo, String senha, String restricao, String tipoDePlano, String focoObjetivo

@@ -17,6 +17,10 @@ public class Pessoa{
 
     public Pessoa(){}
 
+    public Pessoa(String senha){
+        this.senha = senha;
+    }
+
     public Pessoa(String nome, double altura, double peso, int idade, boolean sexo, String senha){
         this.nome = nome;
         this.altura = altura;

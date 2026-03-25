@@ -49,5 +49,5 @@ public class Aluno extends Pessoa{
     }
 
 
-    //matricula 3d rand     001Aluno 002Instrutor 003Personal     3d rand//double rand = Math.random();
+    //matricula 3d rand     001Aluno 002Instrutor 003Personal     2d rand//double rand = Math.random();
 }
