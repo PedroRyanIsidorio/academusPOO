@@ -49,11 +49,35 @@ public class View{
 
         switch (numero){
             case 1: login(); break;
-            case 2: //verPlanos(); break;
+            case 2: verPlanos(); break;
             case 3: fazerCadastramento(); break;
             case 4: //contatos(); break;
             case 5: fechar();break;
         }
+    }
+
+    public void verPlanos(){
+        limparTela();
+        topo();
+        System.out.println("---Planos Disponiveis---");
+        System.out.println("(1) Anual  - R$ 90,00/anual");
+        System.out.println("(2) Mensal - R$ 116,00/mes");
+        System.out.println("\nPressione Enter para voltar...");
+        sc.nextLine();
+        sc.nextLine();
+        init();
+    }
+
+    public void deixarRecado(){
+        limparTela();
+        topo();
+        System.out.println("---Deixar Recado---");
+        System.out.print("Digite seu nome: ");
+        sc.nextLine();
+        String nome = sc.nextLine();
+        System.out.print("Digite seu contato (telefone ou email): ");
+        String contato = sc.nextLine();
+        System.out.println("Recado registrado! Entraremos em contato em breve, " + nome + ".");
     }
 
     public void fazerCadastramento(){
@@ -141,7 +165,6 @@ public class View{
         System.out.println("(8) Ver minha matricula");;
         System.out.println("(9) Alterar senha");
 
-        //pode colocar mais
         System.out.println("(10) Sair");
 
         int numero = sc.nextInt();
