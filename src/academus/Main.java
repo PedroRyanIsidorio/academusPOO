@@ -18,6 +18,6 @@ public class Main{
 
         Login.getRecepcionistaRepo().adicionar(adm);
 
-        view.init();
+        view.init(); //49500165
     }
 }
