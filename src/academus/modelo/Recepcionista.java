@@ -92,7 +92,6 @@ public class Recepcionista extends Pessoa implements IFuncionario {
         View.topo();
         System.out.println("---Deixar Aviso---");
         System.out.print("Digite o aviso: ");
-        sc.nextLine();
         String aviso = sc.nextLine();
         System.out.println("Aviso registrado com sucesso!");
         voltar();
@@ -207,12 +206,24 @@ public class Recepcionista extends Pessoa implements IFuncionario {
         View.limparTela();
         View.topo();
         System.out.println("---Cadastrar Instrutor---");
-        System.out.print("Nome: "); sc.nextLine();
+        System.out.print("Nome: ");
         String nome = sc.nextLine();
         System.out.print("Altura: "); double altura = sc.nextDouble();
         System.out.print("Peso: "); double peso = sc.nextDouble();
         System.out.print("Idade: "); int idade = sc.nextInt(); sc.nextLine();
-        System.out.print("Sexo (0) masculino, (1) feminino: "); boolean sexo = sc.nextBoolean(); sc.nextLine();
+        System.out.println("Digite o sexo (0) masculino, (1) feminino: ");
+        int z = sc.nextInt();
+        sc.nextLine();
+        boolean sexo;
+        if (z==1){
+            sexo = true;
+        }else if (z==0){
+            sexo = false;
+        }else{
+            System.out.println("Entrada invalida!");
+            voltar();
+            return;
+        }
         System.out.print("Senha: "); String senha = sc.nextLine();
         System.out.print("Matricula: "); int matricula = sc.nextInt(); sc.nextLine();
         Instrutor instrutor = new Instrutor(nome, altura, peso, idade, sexo, senha, matricula);
@@ -225,12 +236,24 @@ public class Recepcionista extends Pessoa implements IFuncionario {
         View.limparTela();
         View.topo();
         System.out.println("---Cadastrar Recepcionista---");
-        System.out.print("Nome: "); sc.nextLine();
+        System.out.print("Nome: ");
         String nome = sc.nextLine();
         System.out.print("Altura: "); double altura = sc.nextDouble();
         System.out.print("Peso: "); double peso = sc.nextDouble();
         System.out.print("Idade: "); int idade = sc.nextInt(); sc.nextLine();
-        System.out.print("Sexo (0) masculino, (1) feminino: "); boolean sexo = sc.nextBoolean(); sc.nextLine();
+        System.out.println("Digite o sexo (0) masculino, (1) feminino: ");
+        int z = sc.nextInt();
+        sc.nextLine();
+        boolean sexo;
+        if (z==1){
+            sexo = true;
+        }else if (z==0){
+            sexo = false;
+        }else{
+            System.out.println("Entrada invalida!");
+            voltar();
+            return;
+        }
         System.out.print("Senha: "); String senha = sc.nextLine();
         System.out.print("Matricula: "); int matricula = sc.nextInt(); sc.nextLine();
         Recepcionista recepcionista = new Recepcionista(nome, altura, peso, idade, sexo, senha);

@@ -250,30 +250,31 @@ public class View{
         System.out.println("(1) Ver meu salario");
         System.out.println("(2) Cadastrar aluno");
         System.out.println("(3) Alterar dados de aluno");
-        System.out.println("(4) Fazer denuncia anonima");
-        System.out.println("(5) Cancelar vinculo");
-        System.out.println("(6) Deixar aviso para recepcionista");
-        System.out.println("(7) Ver meus dados");
-        System.out.println("(8) Alterar senha");
-        //pode colocar mais
-        System.out.println("(9) voltar");
-        System.out.println("(10) Sair");
+        System.out.println("(4) Setar treino do aluno");
+        System.out.println("(5) Fazer denuncia anonima");
+        System.out.println("(6) Cancelar vinculo");
+        System.out.println("(7) Deixar aviso para recepcionista");
+        System.out.println("(8) Ver minha matricula");
+        System.out.println("(9) Alterar senha");
+        System.out.println("(10) Voltar");
+        System.out.println("(11) Sair");
         System.out.println("Digite o numero: ");
 
         try {
             int numero = sc.nextInt();
-            if (numero < 1 || numero > 9) throw new EntradaInvalidaException(numero);
+            if (numero < 1 || numero > 11) throw new EntradaInvalidaException(numero);
             switch (numero){
                 case 1: i.verMeuSalario(); break;
                 case 2: i.cadastrarAlunoInst(); break;
                 case 3: i.alterarDadosAluno(); break;
-                case 4: i.fazerDenunciaAnonima(); break;
-                case 5: i.cancelarVinculo(); break;
-                case 6: i.deixarAvisoParaRecepcionista(); break;
-                case 7: i.verMatricula(); break;
-                case 8: i.alterarSenha(); break;
-                case 9: init(); break;
-                case 10: fechar(); break;
+                case 4: i.setarTreinoAluno(); break;
+                case 5: i.fazerDenunciaAnonima(); break;
+                case 6: i.cancelarVinculo(); break;
+                case 7: i.deixarAvisoParaRecepcionista(); break;
+                case 8: i.verMatricula(); break;
+                case 9: i.alterarSenha(); break;
+                case 10: init(); break;
+                case 11: fechar(); break;
             }
         } catch (InputMismatchException e) {
             System.out.println("Erro: Digite apenas numeros!");

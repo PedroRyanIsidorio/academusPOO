@@ -19,6 +19,5 @@ public class Main{
         Login.getRecepcionistaRepo().adicionar(adm);
 
         view.init();
-        //86600122
     }
 }

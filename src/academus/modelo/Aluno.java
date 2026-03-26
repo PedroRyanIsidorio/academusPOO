@@ -83,7 +83,51 @@ public class Aluno extends Pessoa{
         if (treino == null) {
             System.out.println("Nenhum treino cadastrado ainda. Aguarde seu instrutor.");
         } else {
-            System.out.println(treino);
+            switch (treino.toUpperCase()) {
+                case "TREINO A":
+                    System.out.println("=== TREINO A ===");
+                    System.out.println("SEG  : Biceps, Triceps");
+                    System.out.println("TERC : Posterior, Quadriceps");
+                    System.out.println("QUAR : Costas, Ombro");
+                    System.out.println("QUIN : Gluteos");
+                    System.out.println("SEXT : Peito, Abdominal");
+                    System.out.println("SAB  : Panturrilha");
+                    break;
+                case "TREINO B":
+                    System.out.println("=== TREINO B ===");
+                    System.out.println("SEG  : Costas, Ombro");
+                    System.out.println("TERC : Gluteos");
+                    System.out.println("QUAR : Peito, Abdominal");
+                    System.out.println("QUIN : Panturrilha");
+                    System.out.println("SEXT : Biceps, Triceps");
+                    System.out.println("SAB  : Posterior, Quadriceps");
+                    break;
+                case "TREINO C":
+                    System.out.println("=== TREINO C ===");
+                    System.out.println("SEG  : Peito, Abdominal");
+                    System.out.println("TERC : Panturrilha");
+                    System.out.println("QUAR : Biceps, Triceps");
+                    System.out.println("QUIN : Posterior, Quadriceps");
+                    System.out.println("SEXT : Costas, Ombro");
+                    System.out.println("SAB  : Gluteos");
+                    break;
+                default:
+                    System.out.println(treino);
+            }
+
+            if (focoObjetivo != null) {
+                System.out.println();
+                String foco = focoObjetivo.toLowerCase();
+                if (foco.contains("emagrecer")) {
+                    System.out.println(">> Foco: Priorize mais cardio nos seus treinos!");
+                } else if (foco.contains("forca") || foco.contains("força")) {
+                    System.out.println(">> Foco: Aumente a carga, priorize mais peso!");
+                } else if (foco.contains("crescer")) {
+                    System.out.println(">> Foco: Faca mais repeticoes em cada serie!");
+                } else {
+                    System.out.println(">> Foco: " + focoObjetivo);
+                }
+            }
         }
         voltar();
     }
@@ -101,7 +145,6 @@ public class Aluno extends Pessoa{
     public void fazerDenunciaAnonima(){
         System.out.println("---Denuncia Anonima---");
         System.out.print("Descreva a denuncia: ");
-        sc.nextLine();
         String descricao = sc.nextLine();
         Login.getDenunciaRepo().adicionar(new Denuncia(descricao, "Aluno"));
         System.out.println("Denuncia registrada com sucesso!");

@@ -94,7 +94,6 @@ public class Instrutor extends Pessoa implements IFuncionario {
         View.topo();
         System.out.println("---Denuncia Anonima---");
         System.out.print("Descreva a denuncia: ");
-        sc.nextLine();
         String descricao = sc.nextLine();
         Login.getDenunciaRepo().adicionar(new Denuncia(descricao, "Instrutor"));
         System.out.println("Denuncia registrada com sucesso!");
@@ -115,9 +114,43 @@ public class Instrutor extends Pessoa implements IFuncionario {
         View.topo();
         System.out.println("---Deixar Aviso---");
         System.out.print("Digite o aviso: ");
-        sc.nextLine();
         String aviso = sc.nextLine();
         System.out.println("Aviso registrado com sucesso!");
+        voltar();
+    }
+
+    public void setarTreinoAluno(){
+        View.limparTela();
+        View.topo();
+        System.out.println("---Setar Treino do Aluno---");
+        System.out.print("Digite a matricula do aluno: ");
+        int matricula = sc.nextInt();
+        sc.nextLine();
+        try {
+            Aluno aluno = Login.getAlunoRepo().buscar(matricula);
+            System.out.println("Aluno: " + aluno.getNome());
+            System.out.println("Escolha o treino:");
+            System.out.println("(1) TREINO A");
+            System.out.println("(2) TREINO B");
+            System.out.println("(3) TREINO C");
+            System.out.print("Digite o numero: ");
+            int opcao = sc.nextInt();
+            sc.nextLine();
+            String treino;
+            switch (opcao) {
+                case 1: treino = "TREINO A"; break;
+                case 2: treino = "TREINO B"; break;
+                case 3: treino = "TREINO C"; break;
+                default:
+                    System.out.println("Opcao invalida!");
+                    voltar();
+                    return;
+            }
+            aluno.setTreino(treino);
+            System.out.println("Treino " + treino + " definido com sucesso!");
+        } catch (MatriculaNaoEncontradaException e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
         voltar();
     }
 
@@ -134,7 +167,6 @@ public class Instrutor extends Pessoa implements IFuncionario {
         View.topo();
         System.out.println("---Alterar-senha---");
         System.out.println("Digite sua nova senha: ");
-        sc.nextLine();
         super.setSenha(sc.nextLine());
         System.out.println("Senha alterada com sucesso!");
         voltar();
