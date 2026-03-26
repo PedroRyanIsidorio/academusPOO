@@ -1,8 +1,9 @@
 package academus.modelo;
 
+import academus.interfaces.IAutenticavel;
 import java.util.Random;
 
-public class Pessoa{
+public class Pessoa implements IAutenticavel {
 
     ///nome, altura, peso, idade, matricula, sexo
     Random random = new Random();

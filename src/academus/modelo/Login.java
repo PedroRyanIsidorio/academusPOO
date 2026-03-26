@@ -24,15 +24,15 @@ public class Login {
     public static Pessoa autenticar(int matricula, String senha) {
 
         for (Aluno a : alunoRepo.listarTodos()) {
-            if (a.getMatricula() == matricula && a.getSenha().equals(senha)) return a;
+            if (a.getMatricula() == matricula && senha.equals(a.getSenha())) return a;
         }
 
         for (Instrutor i : instrutorRepo.listarTodos()) {
-            if (i.getMatricula() == matricula && i.getSenha().equals(senha)) return i;
+            if (i.getMatricula() == matricula && senha.equals(i.getSenha())) return i;
         }
 
         for (Recepcionista r : recepcionistaRepo.listarTodos()) {
-            if (r.getMatricula() == matricula && r.getSenha().equals(senha)) return r;
+            if (r.getMatricula() == matricula && senha.equals(r.getSenha())) return r;
         }
         return null;
     }
@@ -40,7 +40,7 @@ public class Login {
     public static Pessoa recpAutenticar(int matricula, String senha) {
 
         for (Recepcionista r : recepcionistaRepo.listarTodos()) {
-            if (r.getMatricula() == matricula && r.getSenha().equals(senha)) return r;
+            if (r.getMatricula() == matricula && senha.equals(r.getSenha())) return r;
         }
         return null;
     }

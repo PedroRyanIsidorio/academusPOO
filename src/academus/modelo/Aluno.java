@@ -2,6 +2,8 @@ package academus.modelo;
 
 import java.util.Random;
 import java.util.Scanner;
+import academus.excecoes.PlanoNaoCadastradoException;
+import academus.excecoes.SenhaInvalidaException;
 import academus.modelo.Login;
 
 import academus.view.View;
@@ -64,6 +66,7 @@ public class Aluno extends Pessoa{
 
     public void verPlano(){
         System.out.println("---Meu Plano---");
+        if (tipoDePlano == null) throw new PlanoNaoCadastradoException();
         if (tipoDePlano.equalsIgnoreCase("anual")) {
             System.out.println("Plano: Anual - R$ 90,00/ano");
         } else if (tipoDePlano.equalsIgnoreCase("mensal")) {
@@ -96,8 +99,8 @@ public class Aluno extends Pessoa{
 
     public void fazerDenunciaAnonima(){
         System.out.println("---Denuncia Anonima---");
-        Scanner sc = new Scanner(System.in);
         System.out.print("Descreva a denuncia: ");
+        sc.nextLine();
         String denuncia = sc.nextLine();
         System.out.println("Denuncia registrada com sucesso!");
         voltar();
@@ -106,10 +109,12 @@ public class Aluno extends Pessoa{
     public void cancelarMatricula(){
         System.out.println("Matricula cancelada com sucesso!");
         Login.getAlunoRepo().remover(this.getMatricula());
+        view.init();
     }
 
     public void verDataDeVencimento(){
         System.out.println("---Data de Vencimento---");
+        if (tipoDePlano == null) throw new PlanoNaoCadastradoException();
         if (tipoDePlano.equalsIgnoreCase("mensal")) {
             System.out.println("Seu plano vence todo dia 10 do mes.");
             System.out.println("Status do pagamento: " + statusPagamento);
@@ -134,7 +139,7 @@ public class Aluno extends Pessoa{
         System.out.println("---Meus Dados---");
         System.out.println("Nome: " + getNome());
         System.out.println("Matricula: " + getMatricula());
-        System.out.println("Plano: " + tipoDePlano + (tipoDePlano.equalsIgnoreCase("mensal") ? " - R$ 116,00/mes" : " - R$ 90,00/mes"));
+        System.out.println("Plano: " + (tipoDePlano == null ? "Nao cadastrado" : tipoDePlano + (tipoDePlano.equalsIgnoreCase("mensal") ? " - R$ 116,00/mes" : " - R$ 90,00/mes")));
         System.out.println("Status pagamento: " + statusPagamento);
         System.out.println("Treino: " + (treino == null ? "Nao cadastrado" : treino));
         System.out.println("Foco/Objetivo: " + focoObjetivo);
@@ -144,13 +149,10 @@ public class Aluno extends Pessoa{
 
     public void alterarSenha(){
         System.out.println("---Alterar Senha---");
-        Scanner sc = new Scanner(System.in);
+        sc.nextLine();
         System.out.print("Digite a senha atual: ");
         String senhaAtual = sc.nextLine();
-        if (!senhaAtual.equals(getSenha())) {
-            System.out.println("Senha incorreta!");
-            return;
-        }
+        if (!senhaAtual.equals(getSenha())) throw new SenhaInvalidaException();
         System.out.print("Digite a nova senha: ");
         String novaSenha = sc.nextLine();
         setSenha(novaSenha);

@@ -3,11 +3,13 @@ package academus.modelo;
 import java.util.Random;
 import java.util.Scanner;
 
+import academus.excecoes.MatriculaNaoEncontradaException;
+import academus.interfaces.IFuncionario;
 import academus.modelo.Aluno;
 import academus.modelo.Instrutor;
 import academus.view.View;
 
-public class Recepcionista extends Pessoa{
+public class Recepcionista extends Pessoa implements IFuncionario {
 
     Scanner sc = new Scanner(System.in);
 
@@ -51,13 +53,16 @@ public class Recepcionista extends Pessoa{
         System.out.print("Digite a matricula do aluno: ");
         int matricula = sc.nextInt();
         sc.nextLine();
-        Aluno aluno = Login.getAlunoRepo().buscar(matricula);
-        if (aluno == null) { System.out.println("Aluno nao encontrado."); return; }
-        System.out.print("Novo nome: "); aluno.setNome(sc.nextLine());
-        System.out.print("Nova altura: "); aluno.setAltura(sc.nextDouble());
-        System.out.print("Novo peso: "); aluno.setPeso(sc.nextDouble());
-        System.out.print("Nova idade: "); aluno.setIdade(sc.nextInt()); sc.nextLine();
-        System.out.println("Dados alterados com sucesso!");
+        try {
+            Aluno aluno = Login.getAlunoRepo().buscar(matricula);
+            System.out.print("Novo nome: "); aluno.setNome(sc.nextLine());
+            System.out.print("Nova altura: "); aluno.setAltura(sc.nextDouble());
+            System.out.print("Novo peso: "); aluno.setPeso(sc.nextDouble());
+            System.out.print("Nova idade: "); aluno.setIdade(sc.nextInt()); sc.nextLine();
+            System.out.println("Dados alterados com sucesso!");
+        } catch (MatriculaNaoEncontradaException e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
         voltar();
     }
 
@@ -78,6 +83,7 @@ public class Recepcionista extends Pessoa{
         System.out.println("---Cancelar Vinculo---");
         System.out.println("Vinculo cancelado com sucesso!");
         Login.getRecepcionistaRepo().remover(this.getMatricula());
+        voltar();
     }
 
     public void deixarAvisoParaRecepcionista(){
@@ -189,7 +195,7 @@ public class Recepcionista extends Pessoa{
         System.out.print("Idade: "); int idade = sc.nextInt(); sc.nextLine();
         System.out.print("Sexo (0) masculino, (1) feminino: "); boolean sexo = sc.nextBoolean(); sc.nextLine();
         System.out.print("Senha: "); String senha = sc.nextLine();
-        System.out.print("Matricula: "); int matricula = sc.nextInt();
+        System.out.print("Matricula: "); int matricula = sc.nextInt(); sc.nextLine();
         Instrutor instrutor = new Instrutor(nome, altura, peso, idade, sexo, senha, matricula);
         Login.getInstrutorRepo().adicionar(instrutor);
         System.out.println("Instrutor cadastrado! Matricula: " + instrutor.getMatricula());
@@ -207,8 +213,9 @@ public class Recepcionista extends Pessoa{
         System.out.print("Idade: "); int idade = sc.nextInt(); sc.nextLine();
         System.out.print("Sexo (0) masculino, (1) feminino: "); boolean sexo = sc.nextBoolean(); sc.nextLine();
         System.out.print("Senha: "); String senha = sc.nextLine();
-        System.out.print("Matricula: "); int matricula = sc.nextInt();
+        System.out.print("Matricula: "); int matricula = sc.nextInt(); sc.nextLine();
         Recepcionista recepcionista = new Recepcionista(nome, altura, peso, idade, sexo, senha);
+        recepcionista.noUseSetMatricula(matricula);
         Login.getRecepcionistaRepo().adicionar(recepcionista);
         System.out.println("Recepcionista cadastrada! Matricula: " + recepcionista.getMatricula());
         voltar();
@@ -219,6 +226,7 @@ public class Recepcionista extends Pessoa{
         View.topo();
         System.out.println("---Cadastrar-Aluno---");
         System.out.println("Nome do Aluno: ");
+        sc.nextLine();
         String nome = sc.nextLine();
         System.out.println("Digite a altura: ");
         double altura = sc.nextDouble();
@@ -228,6 +236,7 @@ public class Recepcionista extends Pessoa{
         int idade = sc.nextInt();
         System.out.println("Digite o sexo (0) masculino, (1) feminino: ");
         int z = sc.nextInt();
+        sc.nextLine();
         boolean sexo;
         if (z==1){
             sexo = true;
@@ -235,6 +244,7 @@ public class Recepcionista extends Pessoa{
             sexo = false;
         }else{
             System.out.println("Entrada invalida!");
+            voltar();
             return;
         }
         System.out.print("Digite a senha do aluno: ");
@@ -252,6 +262,25 @@ public class Recepcionista extends Pessoa{
         Aluno aluno = new Aluno(nome, altura, peso, idade, sexo, senha, restricao, tipoDePlano, focoObjetivo);
         Login.getAlunoRepo().adicionar(aluno);
         System.out.println("Aluno registrado!");
+        voltar();
+    }
+
+    public void verMatricula(){
+        View.limparTela();
+        View.topo();
+        System.out.println("---Ver Matricula---");
+        System.out.println("Sua matricula e " + getMatricula());
+        voltar();
+    }
+
+    public void alterarSenha(){
+        View.limparTela();
+        View.topo();
+        System.out.println("---Alterar Senha---");
+        System.out.print("Digite sua nova senha: ");
+        sc.nextLine();
+        setSenha(sc.nextLine());
+        System.out.println("Senha alterada com sucesso!");
         voltar();
     }
 

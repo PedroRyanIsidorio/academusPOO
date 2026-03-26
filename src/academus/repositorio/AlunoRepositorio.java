@@ -1,9 +1,11 @@
 package academus.repositorio;
 
+import academus.excecoes.MatriculaNaoEncontradaException;
+import academus.interfaces.IRepositorio;
 import academus.modelo.Aluno;
 import java.util.ArrayList;
 
-public class AlunoRepositorio {
+public class AlunoRepositorio implements IRepositorio<Aluno> {
 
     private final ArrayList<Aluno> alunos = new ArrayList<>();
 
@@ -19,7 +21,7 @@ public class AlunoRepositorio {
         for (Aluno a : alunos) {
             if (a.getMatricula() == matricula) return a;
         }
-        return null;
+        throw new MatriculaNaoEncontradaException(matricula);
     }
 
     public ArrayList<Aluno> listarTodos() {

@@ -1,11 +1,13 @@
 package academus.modelo;
 
+import academus.excecoes.MatriculaNaoEncontradaException;
+import academus.interfaces.IFuncionario;
 import academus.view.View;
 
 import java.util.Random;
 import java.util.Scanner;
 
-public class Instrutor extends Pessoa{
+public class Instrutor extends Pessoa implements IFuncionario {
 
     Scanner sc = new Scanner(System.in);
 
@@ -38,6 +40,7 @@ public class Instrutor extends Pessoa{
         View.topo();
         System.out.println("---Cadastrar-Aluno---");
         System.out.println("Nome do Aluno: ");
+        sc.nextLine();
         String nome = sc.nextLine();
         System.out.println("Digite a altura: ");
         double altura = sc.nextDouble();
@@ -47,6 +50,7 @@ public class Instrutor extends Pessoa{
         int idade = sc.nextInt();
         System.out.println("Digite o sexo (0) masculino, (1) feminino: ");
         boolean sexo = sc.nextBoolean();
+        sc.nextLine();
         System.out.println("Digite a senha do aluno: ");
         String senha = sc.nextLine();
         System.out.println("Digite a restriçao: ");
@@ -72,13 +76,16 @@ public class Instrutor extends Pessoa{
         System.out.print("Digite a matricula do aluno: ");
         int matricula = sc.nextInt();
         sc.nextLine();
-        Aluno aluno = Login.getAlunoRepo().buscar(matricula);
-        if (aluno == null) { System.out.println("Aluno nao encontrado."); return; }
-        System.out.print("Novo nome: "); aluno.setNome(sc.nextLine());
-        System.out.print("Nova altura: "); aluno.setAltura(sc.nextDouble());
-        System.out.print("Novo peso: "); aluno.setPeso(sc.nextDouble());
-        System.out.print("Nova idade: "); aluno.setIdade(sc.nextInt()); sc.nextLine();
-        System.out.println("Dados alterados com sucesso!");
+        try {
+            Aluno aluno = Login.getAlunoRepo().buscar(matricula);
+            System.out.print("Novo nome: "); aluno.setNome(sc.nextLine());
+            System.out.print("Nova altura: "); aluno.setAltura(sc.nextDouble());
+            System.out.print("Novo peso: "); aluno.setPeso(sc.nextDouble());
+            System.out.print("Nova idade: "); aluno.setIdade(sc.nextInt()); sc.nextLine();
+            System.out.println("Dados alterados com sucesso!");
+        } catch (MatriculaNaoEncontradaException e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
         voltar();
     }
 
@@ -126,6 +133,7 @@ public class Instrutor extends Pessoa{
         View.topo();
         System.out.println("---Alterar-senha---");
         System.out.println("Digite sua nova senha: ");
+        sc.nextLine();
         super.setSenha(sc.nextLine());
         System.out.println("Senha alterada com sucesso!");
         voltar();

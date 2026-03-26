@@ -1,11 +1,16 @@
 package academus.view;
 
+import academus.excecoes.AutenticacaoFalhouException;
+import academus.excecoes.EntradaInvalidaException;
+import academus.excecoes.PlanoNaoCadastradoException;
+import academus.excecoes.SenhaInvalidaException;
 import academus.modelo.Recepcionista;
 import academus.modelo.Login;
 import academus.modelo.Pessoa;
 import academus.modelo.Aluno;
 import academus.modelo.Instrutor;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class View{
@@ -41,18 +46,23 @@ public class View{
         System.out.println("(5) Sair");
         System.out.print("Digite o numero: ");
 
-        int numero = sc.nextInt();
-        if (numero < 1 || numero > 5) {
-            System.out.println("O numero digito digitado e invalido!");
+        try {
+            int numero = sc.nextInt();
+            if (numero < 1 || numero > 5) throw new EntradaInvalidaException(numero);
+            switch (numero){
+                case 1: login(); break;
+                case 2: verPlanos(); break;
+                case 3: fazerCadastramento(); break;
+                case 4: contatos(); break;
+                case 5: fechar(); break;
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Erro: Digite apenas numeros!");
+            sc.nextLine();
             init();
-        }
-
-        switch (numero){
-            case 1: login(); break;
-            case 2: verPlanos(); break;
-            case 3: fazerCadastramento(); break;
-            case 4: contatos(); break;
-            case 5: fechar();break;
+        } catch (EntradaInvalidaException e) {
+            System.out.println("Erro: " + e.getMessage());
+            init();
         }
     }
 
@@ -68,14 +78,20 @@ public class View{
         System.out.println("(2) Sair");
         System.out.print("Digite o numero: ");
 
-        int numero = sc.nextInt();
-        if (numero < 1 || numero > 2) {
-            System.out.println("O numero digito digitado e invalido!");
-            init();
-        }
-        switch (numero){
-            case 1: init(); break;
-            case 2: fechar();break;
+        try {
+            int numero = sc.nextInt();
+            if (numero < 1 || numero > 2) throw new EntradaInvalidaException(numero);
+            switch (numero){
+                case 1: init(); break;
+                case 2: fechar(); break;
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Erro: Digite apenas numeros!");
+            sc.nextLine();
+            contatos();
+        } catch (EntradaInvalidaException e) {
+            System.out.println("Erro: " + e.getMessage());
+            contatos();
         }
     }
 
@@ -101,6 +117,7 @@ public class View{
         System.out.print("Digite seu contato (telefone ou email): ");
         String contato = sc.nextLine();
         System.out.println("Recado registrado! Entraremos em contato em breve, " + nome + ".");
+        init();
     }
 
     public void fazerCadastramento(){
@@ -111,17 +128,22 @@ public class View{
         System.out.println("Caso nao tenha digite (2) para deixar recado");
         System.out.println("(3) Sair");
         System.out.print("Digite o numero: ");
-        int fzc = sc.nextInt();
 
-        if(fzc < 1 || fzc > 3){
-            System.out.println("Numero digitado invalido, tende novamente.");
+        try {
+            int fzc = sc.nextInt();
+            if (fzc < 1 || fzc > 3) throw new EntradaInvalidaException(fzc);
+            switch (fzc){
+                case 1: recepcionistaLogin(); break;
+                case 2: deixarRecado(); break;
+                case 3: fechar(); break;
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Erro: Digite apenas numeros!");
+            sc.nextLine();
             fazerCadastramento();
-        }
-
-        switch (fzc){
-            case 1: recepcionistaLogin(); break;
-            case 2: deixarRecado(); break;
-            case 3: fechar(); break;
+        } catch (EntradaInvalidaException e) {
+            System.out.println("Erro: " + e.getMessage());
+            fazerCadastramento();
         }
     }
 
@@ -130,20 +152,23 @@ public class View{
         topo();
         System.out.println("---LOGIN-RECEPCIONISTA---");
         System.out.print("Digite sua matricula: ");
-        int matricula = sc.nextInt();
-        sc.nextLine();
-        System.out.println();
-        System.out.print("Digite sua senha: ");
-        String senha = sc.nextLine();
 
-        Pessoa p = Login.recpAutenticar(matricula, senha);
-
-        if (p == null) {
-            System.out.println("\nMatricula ou senha invalidos! Tente novamente.");
+        try {
+            int matricula = sc.nextInt();
+            sc.nextLine();
+            System.out.println();
+            System.out.print("Digite sua senha: ");
+            String senha = sc.nextLine();
+            Pessoa p = Login.recpAutenticar(matricula, senha);
+            if (p == null) throw new AutenticacaoFalhouException();
+            if (p instanceof Recepcionista r) menuRecepcionista(r);
+        } catch (InputMismatchException e) {
+            System.out.println("Erro: A matricula deve conter apenas numeros!");
             sc.nextLine();
             recepcionistaLogin();
-        }else if (p instanceof Recepcionista r) {
-            menuRecepcionista(r);
+        } catch (AutenticacaoFalhouException e) {
+            System.out.println("\n" + e.getMessage());
+            recepcionistaLogin();
         }
     }
 
@@ -152,26 +177,25 @@ public class View{
         topo();
         System.out.println("---LOGIN---");
         System.out.print("Digite sua matricula: ");
-        int matricula = sc.nextInt();
-        sc.nextLine();
-        System.out.println();
-        System.out.print("Digite sua senha: ");
-        String senha = sc.nextLine();
 
-        Pessoa p = Login.autenticar(matricula, senha);
-
-        if (p == null) {
-            System.out.println("\nMatricula ou senha invalidos!.");
+        try {
+            int matricula = sc.nextInt();
+            sc.nextLine();
+            System.out.println();
+            System.out.print("Digite sua senha: ");
+            String senha = sc.nextLine();
+            Pessoa p = Login.autenticar(matricula, senha);
+            if (p == null) throw new AutenticacaoFalhouException();
+            if (p instanceof Aluno a) menuAluno(a);
+            else if (p instanceof Instrutor i) menuInstrutor(i);
+            else if (p instanceof Recepcionista r) menuRecepcionista(r);
+        } catch (InputMismatchException e) {
+            System.out.println("Erro: A matricula deve conter apenas numeros!");
             sc.nextLine();
             init();
-        } else if (p instanceof Aluno a) {
-            menuAluno(a);
-
-        } else if (p instanceof Instrutor i) {
-            menuInstrutor(i);
-
-        } else if (p instanceof Recepcionista r) {
-            menuRecepcionista(r);
+        } catch (AutenticacaoFalhouException e) {
+            System.out.println("\n" + e.getMessage());
+            init();
         }
     }
 
@@ -190,22 +214,31 @@ public class View{
         System.out.println("(10) Sair");
         System.out.println("Digite o numero: ");
 
-        int numero = sc.nextInt();
-        if (numero < 1 || numero > 10) {
-            System.out.println("O numero digito digitado e invalido!");
-            init();
-        }
-        switch (numero){
-            case 1: a.verPlano(); break;
-            case 2: a.verMeuTreino(); break;
-            case 3: a.marcarTreinoComoFeito(); break;
-            case 4: a.fazerDenunciaAnonima(); break;
-            case 5: a.cancelarMatricula(); break;
-            case 6: a.verDataDeVencimento(); break;
-            case 7: a.fazerPagamento(); break;
-            case 8: a.verMatricula(); break;
-            case 9: a.alterarSenha(); break;
-            case 10: fechar(); break;
+        try {
+            int numero = sc.nextInt();
+            if (numero < 1 || numero > 10) throw new EntradaInvalidaException(numero);
+            switch (numero){
+                case 1: a.verPlano(); break;
+                case 2: a.verMeuTreino(); break;
+                case 3: a.marcarTreinoComoFeito(); break;
+                case 4: a.fazerDenunciaAnonima(); break;
+                case 5: a.cancelarMatricula(); break;
+                case 6: a.verDataDeVencimento(); break;
+                case 7: a.fazerPagamento(); break;
+                case 8: a.verMatricula(); break;
+                case 9: a.alterarSenha(); break;
+                case 10: fechar(); break;
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Erro: Digite apenas numeros!");
+            sc.nextLine();
+            menuAluno(a);
+        } catch (EntradaInvalidaException e) {
+            System.out.println("Erro: " + e.getMessage());
+            menuAluno(a);
+        } catch (PlanoNaoCadastradoException | SenhaInvalidaException e) {
+            System.out.println("Erro: " + e.getMessage());
+            menuAluno(a);
         }
     }
 
@@ -224,21 +257,27 @@ public class View{
         System.out.println("(9) Sair");
         System.out.println("Digite o numero: ");
 
-        int numero = sc.nextInt();
-        if (numero < 1 || numero > 9) {
-            System.out.println("O numero digito digitado e invalido!");
-            init();
-        }
-        switch (numero){
-            case 1: i.verMeuSalario(); break;
-            case 2: i.cadastrarAlunoInst(); break;
-            case 3: i.alterarDadosAluno(); break;
-            case 4: i.fazerDenunciaAnonima(); break;
-            case 5: i.cancelarVinculo(); break;
-            case 6: i.deixarAvisoParaRecepcionista(); break;
-            case 7: i.verMatricula(); break;
-            case 8: i.alterarSenha(); break;
-            case 9: fechar(); break;
+        try {
+            int numero = sc.nextInt();
+            if (numero < 1 || numero > 9) throw new EntradaInvalidaException(numero);
+            switch (numero){
+                case 1: i.verMeuSalario(); break;
+                case 2: i.cadastrarAlunoInst(); break;
+                case 3: i.alterarDadosAluno(); break;
+                case 4: i.fazerDenunciaAnonima(); break;
+                case 5: i.cancelarVinculo(); break;
+                case 6: i.deixarAvisoParaRecepcionista(); break;
+                case 7: i.verMatricula(); break;
+                case 8: i.alterarSenha(); break;
+                case 9: fechar(); break;
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Erro: Digite apenas numeros!");
+            sc.nextLine();
+            menuInstrutor(i);
+        } catch (EntradaInvalidaException e) {
+            System.out.println("Erro: " + e.getMessage());
+            menuInstrutor(i);
         }
     }
 
@@ -266,30 +305,36 @@ public class View{
         System.out.println("(18) Sair");
         System.out.println("Digite o numero: ");
 
-        int numero = sc.nextInt();
-        if (numero < 1 || numero > 18) {
-            System.out.println("O numero digito digitado e invalido!");
-            init();
-        }
-        switch (numero){
-            case 1: r.verMeuSalario(); break;
-            case 2: r.cadastrarAluno(); break;
-            case 3: r.alterarDadosAluno(); break;
-            case 4: r.fazerDenunciaAnonima(); break;
-            case 5: r.cancelarVinculo(); break;
-            case 6: r.deixarAvisoParaRecepcionista(); break;
-            case 7: r.listarAlunos(); break;
-            case 8: r.listarInstrutores(); break;
-            case 9: r.listarRecepcionistas(); break;
-            case 10: r.listarPlanos(); break;
-            case 11: r.removerAluno(); break;
-            case 12: r.removerInstrutor(); break;
-            case 13: r.removerRecepcionista(); break;
-            case 14: r.adicionarPlano(); break;
-            case 15: r.excluirPlano(); break;
-            case 16: r.cadastrarInstrutor(); break;
-            case 17: r.cadastrarRecepcionista(); break;
-            case 18: fechar(); break;
+        try {
+            int numero = sc.nextInt();
+            if (numero < 1 || numero > 18) throw new EntradaInvalidaException(numero);
+            switch (numero){
+                case 1: r.verMeuSalario(); break;
+                case 2: r.cadastrarAluno(); break;
+                case 3: r.alterarDadosAluno(); break;
+                case 4: r.fazerDenunciaAnonima(); break;
+                case 5: r.cancelarVinculo(); break;
+                case 6: r.deixarAvisoParaRecepcionista(); break;
+                case 7: r.listarAlunos(); break;
+                case 8: r.listarInstrutores(); break;
+                case 9: r.listarRecepcionistas(); break;
+                case 10: r.listarPlanos(); break;
+                case 11: r.removerAluno(); break;
+                case 12: r.removerInstrutor(); break;
+                case 13: r.removerRecepcionista(); break;
+                case 14: r.adicionarPlano(); break;
+                case 15: r.excluirPlano(); break;
+                case 16: r.cadastrarInstrutor(); break;
+                case 17: r.cadastrarRecepcionista(); break;
+                case 18: fechar(); break;
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Erro: Digite apenas numeros!");
+            sc.nextLine();
+            menuRecepcionista(r);
+        } catch (EntradaInvalidaException e) {
+            System.out.println("Erro: " + e.getMessage());
+            menuRecepcionista(r);
         }
     }
 
