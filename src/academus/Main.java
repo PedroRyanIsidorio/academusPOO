@@ -18,11 +18,7 @@ public class Main{
 
         Login.getRecepcionistaRepo().adicionar(adm);
 
-        Aluno a = new Aluno("123");
-        Login.getAlunoRepo().adicionar(a);
-
-
-        System.out.println(a.getMatricula());
         view.init();
+        //86600122
     }
 }

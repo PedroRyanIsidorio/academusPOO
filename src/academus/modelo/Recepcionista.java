@@ -6,6 +6,7 @@ import java.util.Scanner;
 import academus.excecoes.MatriculaNaoEncontradaException;
 import academus.interfaces.IFuncionario;
 import academus.modelo.Aluno;
+import academus.modelo.Denuncia;
 import academus.modelo.Instrutor;
 import academus.view.View;
 
@@ -71,8 +72,8 @@ public class Recepcionista extends Pessoa implements IFuncionario {
         View.topo();
         System.out.println("---Denuncia Anonima---");
         System.out.print("Descreva a denuncia: ");
-        sc.nextLine();
-        String denuncia = sc.nextLine();
+        String descricao = sc.nextLine();
+        Login.getDenunciaRepo().adicionar(new Denuncia(descricao, "Recepcionista"));
         System.out.println("Denuncia registrada com sucesso!");
         voltar();
     }
@@ -142,8 +143,14 @@ public class Recepcionista extends Pessoa implements IFuncionario {
         System.out.println("---Remover Aluno---");
         System.out.print("Digite a matricula do aluno: ");
         int matricula = sc.nextInt();
-        Login.getAlunoRepo().remover(matricula);
-        System.out.println("Aluno removido com sucesso!");
+        sc.nextLine();
+        try {
+            Login.getAlunoRepo().buscar(matricula);
+            Login.getAlunoRepo().remover(matricula);
+            System.out.println("Aluno removido com sucesso!");
+        } catch (MatriculaNaoEncontradaException e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
         voltar();
     }
 
@@ -153,8 +160,14 @@ public class Recepcionista extends Pessoa implements IFuncionario {
         System.out.println("---Remover Instrutor---");
         System.out.print("Digite a matricula do instrutor: ");
         int matricula = sc.nextInt();
-        Login.getInstrutorRepo().remover(matricula);
-        System.out.println("Instrutor removido com sucesso!");
+        sc.nextLine();
+        try {
+            Login.getInstrutorRepo().buscar(matricula);
+            Login.getInstrutorRepo().remover(matricula);
+            System.out.println("Instrutor removido com sucesso!");
+        } catch (MatriculaNaoEncontradaException e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
         voltar();
     }
 
@@ -164,8 +177,14 @@ public class Recepcionista extends Pessoa implements IFuncionario {
         System.out.println("---Remover Recepcionista---");
         System.out.print("Digite a matricula da recepcionista: ");
         int matricula = sc.nextInt();
-        Login.getRecepcionistaRepo().remover(matricula);
-        System.out.println("Recepcionista removida com sucesso!");
+        sc.nextLine();
+        try {
+            Login.getRecepcionistaRepo().buscar(matricula);
+            Login.getRecepcionistaRepo().remover(matricula);
+            System.out.println("Recepcionista removida com sucesso!");
+        } catch (MatriculaNaoEncontradaException e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
         voltar();
     }
 
@@ -226,7 +245,6 @@ public class Recepcionista extends Pessoa implements IFuncionario {
         View.topo();
         System.out.println("---Cadastrar-Aluno---");
         System.out.println("Nome do Aluno: ");
-        sc.nextLine();
         String nome = sc.nextLine();
         System.out.println("Digite a altura: ");
         double altura = sc.nextDouble();
@@ -262,6 +280,20 @@ public class Recepcionista extends Pessoa implements IFuncionario {
         Aluno aluno = new Aluno(nome, altura, peso, idade, sexo, senha, restricao, tipoDePlano, focoObjetivo);
         Login.getAlunoRepo().adicionar(aluno);
         System.out.println("Aluno registrado!");
+        voltar();
+    }
+
+    public void listarDenuncias(){
+        View.limparTela();
+        View.topo();
+        System.out.println("---Denuncias Anonimas---");
+        if (Login.getDenunciaRepo().isEmpty()) {
+            System.out.println("Nenhuma denuncia registrada.");
+        } else {
+            for (Denuncia d : Login.getDenunciaRepo().listarTodas()) {
+                System.out.println(d);
+            }
+        }
         voltar();
     }
 

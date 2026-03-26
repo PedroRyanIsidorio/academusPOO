@@ -2,6 +2,7 @@ package academus.modelo;
 
 import academus.excecoes.MatriculaNaoEncontradaException;
 import academus.interfaces.IFuncionario;
+import academus.modelo.Denuncia;
 import academus.view.View;
 
 import java.util.Random;
@@ -40,7 +41,6 @@ public class Instrutor extends Pessoa implements IFuncionario {
         View.topo();
         System.out.println("---Cadastrar-Aluno---");
         System.out.println("Nome do Aluno: ");
-        sc.nextLine();
         String nome = sc.nextLine();
         System.out.println("Digite a altura: ");
         double altura = sc.nextDouble();
@@ -95,7 +95,8 @@ public class Instrutor extends Pessoa implements IFuncionario {
         System.out.println("---Denuncia Anonima---");
         System.out.print("Descreva a denuncia: ");
         sc.nextLine();
-        String denuncia = sc.nextLine();
+        String descricao = sc.nextLine();
+        Login.getDenunciaRepo().adicionar(new Denuncia(descricao, "Instrutor"));
         System.out.println("Denuncia registrada com sucesso!");
         voltar();
     }

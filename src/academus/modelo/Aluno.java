@@ -4,6 +4,7 @@ import java.util.Random;
 import java.util.Scanner;
 import academus.excecoes.PlanoNaoCadastradoException;
 import academus.excecoes.SenhaInvalidaException;
+import academus.modelo.Denuncia;
 import academus.modelo.Login;
 
 import academus.view.View;
@@ -101,7 +102,8 @@ public class Aluno extends Pessoa{
         System.out.println("---Denuncia Anonima---");
         System.out.print("Descreva a denuncia: ");
         sc.nextLine();
-        String denuncia = sc.nextLine();
+        String descricao = sc.nextLine();
+        Login.getDenunciaRepo().adicionar(new Denuncia(descricao, "Aluno"));
         System.out.println("Denuncia registrada com sucesso!");
         voltar();
     }

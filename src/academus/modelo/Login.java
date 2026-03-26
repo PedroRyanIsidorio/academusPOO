@@ -1,6 +1,7 @@
 package academus.modelo;
 
 import academus.repositorio.AlunoRepositorio;
+import academus.repositorio.DenunciaRepositorio;
 import academus.repositorio.InstrutorRepositorio;
 import academus.repositorio.RecepcionistaRepositorio;
 
@@ -8,6 +9,11 @@ public class Login {
     private static AlunoRepositorio alunoRepo = new AlunoRepositorio();
     private static InstrutorRepositorio instrutorRepo = new InstrutorRepositorio();
     private static RecepcionistaRepositorio recepcionistaRepo = new RecepcionistaRepositorio();
+    private static DenunciaRepositorio denunciaRepo = new DenunciaRepositorio();
+
+    public static DenunciaRepositorio getDenunciaRepo() {
+        return denunciaRepo;
+    }
 
     public static AlunoRepositorio getAlunoRepo() {
         return alunoRepo;

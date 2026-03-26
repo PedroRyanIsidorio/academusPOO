@@ -209,9 +209,10 @@ public class View{
         System.out.println("(5) Cancelar matricula");
         System.out.println("(6) Ver data de vercimento");
         System.out.println("(7) Fazer Pagamento");
-        System.out.println("(8) Ver minha matricula");;
+        System.out.println("(8) Ver meus dados");;
         System.out.println("(9) Alterar senha");
-        System.out.println("(10) Sair");
+        System.out.println("(10) voltar");
+        System.out.println("(11) Sair");
         System.out.println("Digite o numero: ");
 
         try {
@@ -227,7 +228,8 @@ public class View{
                 case 7: a.fazerPagamento(); break;
                 case 8: a.verMatricula(); break;
                 case 9: a.alterarSenha(); break;
-                case 10: fechar(); break;
+                case 10: init(); break;
+                case 11: fechar(); break;
             }
         } catch (InputMismatchException e) {
             System.out.println("Erro: Digite apenas numeros!");
@@ -251,10 +253,11 @@ public class View{
         System.out.println("(4) Fazer denuncia anonima");
         System.out.println("(5) Cancelar vinculo");
         System.out.println("(6) Deixar aviso para recepcionista");
-        System.out.println("(7) Ver minha matricula");
+        System.out.println("(7) Ver meus dados");
         System.out.println("(8) Alterar senha");
         //pode colocar mais
-        System.out.println("(9) Sair");
+        System.out.println("(9) voltar");
+        System.out.println("(10) Sair");
         System.out.println("Digite o numero: ");
 
         try {
@@ -269,7 +272,8 @@ public class View{
                 case 6: i.deixarAvisoParaRecepcionista(); break;
                 case 7: i.verMatricula(); break;
                 case 8: i.alterarSenha(); break;
-                case 9: fechar(); break;
+                case 9: init(); break;
+                case 10: fechar(); break;
             }
         } catch (InputMismatchException e) {
             System.out.println("Erro: Digite apenas numeros!");
@@ -301,13 +305,15 @@ public class View{
         System.out.println("(15) Excluir plano");
         System.out.println("(16) Cadastrar instrutor");
         System.out.println("(17) Cadastrar recepcionista");
+        System.out.println("(18) Listar denuncias");
+        System.out.println("(19) Voltar");
         //pode colocar mais
-        System.out.println("(18) Sair");
+        System.out.println("(20) Sair");
         System.out.println("Digite o numero: ");
 
         try {
             int numero = sc.nextInt();
-            if (numero < 1 || numero > 18) throw new EntradaInvalidaException(numero);
+            if (numero < 1 || numero > 19) throw new EntradaInvalidaException(numero);
             switch (numero){
                 case 1: r.verMeuSalario(); break;
                 case 2: r.cadastrarAluno(); break;
@@ -326,7 +332,9 @@ public class View{
                 case 15: r.excluirPlano(); break;
                 case 16: r.cadastrarInstrutor(); break;
                 case 17: r.cadastrarRecepcionista(); break;
-                case 18: fechar(); break;
+                case 18: r.listarDenuncias(); break;
+                case 19: init(); break;
+                case 20: fechar(); break;
             }
         } catch (InputMismatchException e) {
             System.out.println("Erro: Digite apenas numeros!");
