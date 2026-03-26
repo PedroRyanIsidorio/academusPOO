@@ -3,7 +3,7 @@ package academus.modelo;
 import academus.interfaces.IAutenticavel;
 import java.util.Random;
 
-public class Pessoa implements IAutenticavel {
+public abstract class Pessoa implements IAutenticavel {
 
     ///nome, altura, peso, idade, matricula, sexo
     Random random = new Random();
@@ -82,4 +82,7 @@ public class Pessoa implements IAutenticavel {
     public int getMatricula(){
         return matricula;
     }
+
+    public abstract void verMatricula();
+    public abstract void alterarSenha();
 }

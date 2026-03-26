@@ -1,20 +1,14 @@
 package academus.modelo;
 
 import java.util.Random;
-import java.util.Scanner;
 
 import academus.excecoes.MatriculaNaoEncontradaException;
-import academus.interfaces.IFuncionario;
 import academus.modelo.Aluno;
 import academus.modelo.Denuncia;
 import academus.modelo.Instrutor;
 import academus.view.View;
 
-public class Recepcionista extends Pessoa implements IFuncionario {
-
-    Scanner sc = new Scanner(System.in);
-
-    View view = new View();
+public class Recepcionista extends Funcionario {
 
     Random random = new Random();
     String mat = Integer.toString(super.getMatricula()) + "003" + Integer.toString(random.nextInt(90)+10);
@@ -37,13 +31,25 @@ public class Recepcionista extends Pessoa implements IFuncionario {
         this.matricula = matricula;
     }
 
-    //String nome, double altura, double peso, int idade, boolean sexo, String senha, String restricao, String tipoDePlano, String focoObjetivo
-
-    public void verMeuSalario(){
+    @Override
+    public void fazerDenunciaAnonima(){
         View.limparTela();
         View.topo();
-        System.out.println("---Meu Salario---");
-        System.out.println("Salario: R$ 1.518,00");
+        System.out.println("---Denuncia Anonima---");
+        System.out.print("Descreva a denuncia: ");
+        String descricao = sc.nextLine();
+        Login.getDenunciaRepo().adicionar(new Denuncia(descricao, "Recepcionista"));
+        System.out.println("Denuncia registrada com sucesso!");
+        voltar();
+    }
+
+    @Override
+    public void cancelarVinculo(){
+        View.limparTela();
+        View.topo();
+        System.out.println("---Cancelar Vinculo---");
+        System.out.println("Vinculo cancelado com sucesso!");
+        Login.getRecepcionistaRepo().remover(this.getMatricula());
         voltar();
     }
 
@@ -64,36 +70,6 @@ public class Recepcionista extends Pessoa implements IFuncionario {
         } catch (MatriculaNaoEncontradaException e) {
             System.out.println("Erro: " + e.getMessage());
         }
-        voltar();
-    }
-
-    public void fazerDenunciaAnonima(){
-        View.limparTela();
-        View.topo();
-        System.out.println("---Denuncia Anonima---");
-        System.out.print("Descreva a denuncia: ");
-        String descricao = sc.nextLine();
-        Login.getDenunciaRepo().adicionar(new Denuncia(descricao, "Recepcionista"));
-        System.out.println("Denuncia registrada com sucesso!");
-        voltar();
-    }
-
-    public void cancelarVinculo(){
-        View.limparTela();
-        View.topo();
-        System.out.println("---Cancelar Vinculo---");
-        System.out.println("Vinculo cancelado com sucesso!");
-        Login.getRecepcionistaRepo().remover(this.getMatricula());
-        voltar();
-    }
-
-    public void deixarAvisoParaRecepcionista(){
-        View.limparTela();
-        View.topo();
-        System.out.println("---Deixar Aviso---");
-        System.out.print("Digite o aviso: ");
-        String aviso = sc.nextLine();
-        System.out.println("Aviso registrado com sucesso!");
         voltar();
     }
 
@@ -320,26 +296,8 @@ public class Recepcionista extends Pessoa implements IFuncionario {
         voltar();
     }
 
-    public void verMatricula(){
-        View.limparTela();
-        View.topo();
-        System.out.println("---Ver Matricula---");
-        System.out.println("Sua matricula e " + getMatricula());
-        voltar();
-    }
-
-    public void alterarSenha(){
-        View.limparTela();
-        View.topo();
-        System.out.println("---Alterar Senha---");
-        System.out.print("Digite sua nova senha: ");
-        sc.nextLine();
-        setSenha(sc.nextLine());
-        System.out.println("Senha alterada com sucesso!");
-        voltar();
-    }
-
-    private void voltar(){
+    @Override
+    protected void voltar(){
         System.out.println("Enter para voltar");
         sc.nextLine();
         view.menuRecepcionista(this);

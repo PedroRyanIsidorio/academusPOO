@@ -1,18 +1,12 @@
 package academus.modelo;
 
 import academus.excecoes.MatriculaNaoEncontradaException;
-import academus.interfaces.IFuncionario;
 import academus.modelo.Denuncia;
 import academus.view.View;
 
 import java.util.Random;
-import java.util.Scanner;
 
-public class Instrutor extends Pessoa implements IFuncionario {
-
-    Scanner sc = new Scanner(System.in);
-
-    View view = new View();
+public class Instrutor extends Funcionario {
 
     Random random = new Random();
     String mat = Integer.toString(super.getMatricula()) + "002" + Integer.toString(random.nextInt(90)+10);
@@ -26,14 +20,6 @@ public class Instrutor extends Pessoa implements IFuncionario {
     @Override
     public int getMatricula(){
         return matricula;
-    }
-
-    public void verMeuSalario(){
-        View.limparTela();
-        View.topo();
-        System.out.println("---Meu Salario---");
-        System.out.println("Salario: R$ 1.518,00");
-        voltar();
     }
 
     public void cadastrarAlunoInst(){
@@ -89,6 +75,7 @@ public class Instrutor extends Pessoa implements IFuncionario {
         voltar();
     }
 
+    @Override
     public void fazerDenunciaAnonima(){
         View.limparTela();
         View.topo();
@@ -100,22 +87,13 @@ public class Instrutor extends Pessoa implements IFuncionario {
         voltar();
     }
 
+    @Override
     public void cancelarVinculo(){
         View.limparTela();
         View.topo();
         System.out.println("---Cancelar Vinculo---");
         System.out.println("Vinculo cancelado com sucesso!");
         Login.getInstrutorRepo().remover(this.getMatricula());
-        voltar();
-    }
-
-    public void deixarAvisoParaRecepcionista(){
-        View.limparTela();
-        View.topo();
-        System.out.println("---Deixar Aviso---");
-        System.out.print("Digite o aviso: ");
-        String aviso = sc.nextLine();
-        System.out.println("Aviso registrado com sucesso!");
         voltar();
     }
 
@@ -154,25 +132,8 @@ public class Instrutor extends Pessoa implements IFuncionario {
         voltar();
     }
 
-    public void verMatricula(){
-        View.limparTela();
-        View.topo();
-        System.out.println("---Ver-matricula---");
-        System.out.println("Sua matricula é "+ matricula);
-        voltar();
-    }
-
-    public void alterarSenha(){
-        View.limparTela();
-        View.topo();
-        System.out.println("---Alterar-senha---");
-        System.out.println("Digite sua nova senha: ");
-        super.setSenha(sc.nextLine());
-        System.out.println("Senha alterada com sucesso!");
-        voltar();
-    }
-
-    private void voltar(){
+    @Override
+    protected void voltar(){
         System.out.println("Enter para voltar");
         sc.nextLine();
         view.menuInstrutor(this);
