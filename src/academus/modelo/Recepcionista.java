@@ -11,6 +11,8 @@ public class Recepcionista extends Pessoa{
 
     Scanner sc = new Scanner(System.in);
 
+    View view = new View();
+
     Random random = new Random();
     String mat = Integer.toString(super.getMatricula()) + "003" + Integer.toString(random.nextInt(90)+10);
     private int matricula = Integer.parseInt(mat);
@@ -38,7 +40,8 @@ public class Recepcionista extends Pessoa{
         View.limparTela();
         View.topo();
         System.out.println("---Meu Salario---");
-        System.out.println("Salario: R$ 1.500,00");
+        System.out.println("Salario: R$ 1.518,00");
+        voltar();
     }
 
     public void alterarDadosAluno(){
@@ -55,6 +58,7 @@ public class Recepcionista extends Pessoa{
         System.out.print("Novo peso: "); aluno.setPeso(sc.nextDouble());
         System.out.print("Nova idade: "); aluno.setIdade(sc.nextInt()); sc.nextLine();
         System.out.println("Dados alterados com sucesso!");
+        voltar();
     }
 
     public void fazerDenunciaAnonima(){
@@ -65,6 +69,7 @@ public class Recepcionista extends Pessoa{
         sc.nextLine();
         String denuncia = sc.nextLine();
         System.out.println("Denuncia registrada com sucesso!");
+        voltar();
     }
 
     public void cancelarVinculo(){
@@ -83,6 +88,7 @@ public class Recepcionista extends Pessoa{
         sc.nextLine();
         String aviso = sc.nextLine();
         System.out.println("Aviso registrado com sucesso!");
+        voltar();
     }
 
     public void listarAlunos(){
@@ -92,6 +98,7 @@ public class Recepcionista extends Pessoa{
         for (Aluno a : Login.getAlunoRepo().listarTodos()) {
             System.out.println("Matricula: " + a.getMatricula() + " | Nome: " + a.getNome() + " | Plano: " + a.getTipoDePlano());
         }
+        voltar();
     }
 
     public void listarInstrutores(){
@@ -101,6 +108,7 @@ public class Recepcionista extends Pessoa{
         for (Instrutor i : Login.getInstrutorRepo().listarTodos()) {
             System.out.println("Matricula: " + i.getMatricula() + " | Nome: " + i.getNome());
         }
+        voltar();
     }
 
     public void listarRecepcionistas(){
@@ -110,6 +118,7 @@ public class Recepcionista extends Pessoa{
         for (Recepcionista r : Login.getRecepcionistaRepo().listarTodos()) {
             System.out.println("Matricula: " + r.getMatricula() + " | Nome: " + r.getNome());
         }
+        voltar();
     }
 
     public void listarPlanos(){
@@ -118,6 +127,7 @@ public class Recepcionista extends Pessoa{
         System.out.println("---Planos Disponiveis---");
         System.out.println("Anual  - R$ 90,00/ano");
         System.out.println("Mensal - R$ 116,00/mes");
+        voltar();
     }
 
     public void removerAluno(){
@@ -128,6 +138,7 @@ public class Recepcionista extends Pessoa{
         int matricula = sc.nextInt();
         Login.getAlunoRepo().remover(matricula);
         System.out.println("Aluno removido com sucesso!");
+        voltar();
     }
 
     public void removerInstrutor(){
@@ -138,6 +149,7 @@ public class Recepcionista extends Pessoa{
         int matricula = sc.nextInt();
         Login.getInstrutorRepo().remover(matricula);
         System.out.println("Instrutor removido com sucesso!");
+        voltar();
     }
 
     public void removerRecepcionista(){
@@ -148,6 +160,7 @@ public class Recepcionista extends Pessoa{
         int matricula = sc.nextInt();
         Login.getRecepcionistaRepo().remover(matricula);
         System.out.println("Recepcionista removida com sucesso!");
+        voltar();
     }
 
     public void adicionarPlano(){
@@ -155,12 +168,14 @@ public class Recepcionista extends Pessoa{
         View.topo();
         System.out.println("Os planos disponiveis sao Anual e Mensal.");
         System.out.println("Nao e possivel adicionar novos planos no momento.");
+        voltar();
     }
 
     public void excluirPlano(){
         View.limparTela();
         View.topo();
         System.out.println("Nao e possivel excluir planos no momento.");
+        voltar();
     }
 
     public void cadastrarInstrutor(){
@@ -178,6 +193,7 @@ public class Recepcionista extends Pessoa{
         Instrutor instrutor = new Instrutor(nome, altura, peso, idade, sexo, senha, matricula);
         Login.getInstrutorRepo().adicionar(instrutor);
         System.out.println("Instrutor cadastrado! Matricula: " + instrutor.getMatricula());
+        voltar();
     }
 
     public void cadastrarRecepcionista(){
@@ -192,9 +208,10 @@ public class Recepcionista extends Pessoa{
         System.out.print("Sexo (0) masculino, (1) feminino: "); boolean sexo = sc.nextBoolean(); sc.nextLine();
         System.out.print("Senha: "); String senha = sc.nextLine();
         System.out.print("Matricula: "); int matricula = sc.nextInt();
-        Recepcionista recepcionista = new Recepcionista(nome, altura, peso, idade, sexo, senha, matricula);
+        Recepcionista recepcionista = new Recepcionista(nome, altura, peso, idade, sexo, senha);
         Login.getRecepcionistaRepo().adicionar(recepcionista);
         System.out.println("Recepcionista cadastrada! Matricula: " + recepcionista.getMatricula());
+        voltar();
     }
 
     public void cadastrarAluno(){
@@ -210,10 +227,19 @@ public class Recepcionista extends Pessoa{
         System.out.println("Digite a idade: ");
         int idade = sc.nextInt();
         System.out.println("Digite o sexo (0) masculino, (1) feminino: ");
-        boolean sexo = sc.nextBoolean();
-        System.out.println("Digite a senha do aluno: ");
+        int z = sc.nextInt();
+        boolean sexo;
+        if (z==1){
+            sexo = true;
+        }else if (z==0){
+            sexo = false;
+        }else{
+            System.out.println("Entrada invalida!");
+            return;
+        }
+        System.out.print("Digite a senha do aluno: ");
         String senha = sc.nextLine();
-        System.out.println("Digite a restriçao: ");
+        System.out.print("Digite a restriçao: ");
         String restricao = sc.nextLine();
         System.out.println("Escolha o plano:");
         System.out.println("(1) Anual - R$ 90,00/mes");
@@ -225,5 +251,13 @@ public class Recepcionista extends Pessoa{
         String focoObjetivo = sc.nextLine();
         Aluno aluno = new Aluno(nome, altura, peso, idade, sexo, senha, restricao, tipoDePlano, focoObjetivo);
         Login.getAlunoRepo().adicionar(aluno);
+        System.out.println("Aluno registrado!");
+        voltar();
+    }
+
+    private void voltar(){
+        System.out.println("Enter para voltar");
+        sc.nextLine();
+        view.menuRecepcionista(this);
     }
 }

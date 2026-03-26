@@ -51,8 +51,31 @@ public class View{
             case 1: login(); break;
             case 2: verPlanos(); break;
             case 3: fazerCadastramento(); break;
-            case 4: //contatos(); break;
+            case 4: contatos(); break;
             case 5: fechar();break;
+        }
+    }
+
+    public void contatos(){
+        limparTela();
+        topo();
+        System.out.println("Whatsapp: (88) 98115-4392");
+        System.out.println("Email: academus@academus.gym");
+        System.out.println("Instagram: @academusgym");
+        System.out.println("Telefone 1: 0800 770 0051");
+        System.out.println("Telefone 2: 0800 882 0041");
+        System.out.println("(1) Voltar");
+        System.out.println("(2) Sair");
+        System.out.print("Digite o numero: ");
+
+        int numero = sc.nextInt();
+        if (numero < 1 || numero > 2) {
+            System.out.println("O numero digito digitado e invalido!");
+            init();
+        }
+        switch (numero){
+            case 1: init(); break;
+            case 2: fechar();break;
         }
     }
 
@@ -97,7 +120,7 @@ public class View{
 
         switch (fzc){
             case 1: recepcionistaLogin(); break;
-            case 2: //deixarRecado(); break;
+            case 2: deixarRecado(); break;
             case 3: fechar(); break;
         }
     }
@@ -138,9 +161,9 @@ public class View{
         Pessoa p = Login.autenticar(matricula, senha);
 
         if (p == null) {
-            System.out.println("\nMatricula ou senha invalidos! Tente novamente.");
+            System.out.println("\nMatricula ou senha invalidos!.");
             sc.nextLine();
-            login();
+            init();
         } else if (p instanceof Aluno a) {
             menuAluno(a);
 
@@ -164,8 +187,8 @@ public class View{
         System.out.println("(7) Fazer Pagamento");
         System.out.println("(8) Ver minha matricula");;
         System.out.println("(9) Alterar senha");
-
         System.out.println("(10) Sair");
+        System.out.println("Digite o numero: ");
 
         int numero = sc.nextInt();
         if (numero < 1 || numero > 10) {
@@ -173,15 +196,15 @@ public class View{
             init();
         }
         switch (numero){
-            case 1: //a.verPlano(); break;
-            case 2: //a.verMeuTreino(); break;
-            case 3: //a.marcarTreinoComoFeito(); break;
-            case 4: //a.fazerDenunciaAnonima(); break;
-            case 5: //a.cancelarMatricula(); break;
-            case 6: //a.verDataDeVencimento(); break;
-            case 7: //a.fazerPagamento(); break;
-            case 8: //a.verMatricula(); break;
-            case 9: //a.alterarSenha(); break;
+            case 1: a.verPlano(); break;
+            case 2: a.verMeuTreino(); break;
+            case 3: a.marcarTreinoComoFeito(); break;
+            case 4: a.fazerDenunciaAnonima(); break;
+            case 5: a.cancelarMatricula(); break;
+            case 6: a.verDataDeVencimento(); break;
+            case 7: a.fazerPagamento(); break;
+            case 8: a.verMatricula(); break;
+            case 9: a.alterarSenha(); break;
             case 10: fechar(); break;
         }
     }
@@ -199,6 +222,7 @@ public class View{
         System.out.println("(8) Alterar senha");
         //pode colocar mais
         System.out.println("(9) Sair");
+        System.out.println("Digite o numero: ");
 
         int numero = sc.nextInt();
         if (numero < 1 || numero > 9) {
@@ -206,14 +230,14 @@ public class View{
             init();
         }
         switch (numero){
-            case 1: //i.verMeuSalario(); break;
-            case 2: //i.cadastrarAlunoInst(); break;
-            case 3: //i.alterarDadosAluno(); break;
-            case 4: //i.fazerDenunciaAnonima(); break;
-            case 5: //i.cancelarVinculo(); break;
-            case 6: //i.deixarAvisoParaRecepcionista(); break;
-            case 7: //i.verMatricula(); break;
-            case 8: //i.alterarSenha(); break;
+            case 1: i.verMeuSalario(); break;
+            case 2: i.cadastrarAlunoInst(); break;
+            case 3: i.alterarDadosAluno(); break;
+            case 4: i.fazerDenunciaAnonima(); break;
+            case 5: i.cancelarVinculo(); break;
+            case 6: i.deixarAvisoParaRecepcionista(); break;
+            case 7: i.verMatricula(); break;
+            case 8: i.alterarSenha(); break;
             case 9: fechar(); break;
         }
     }
@@ -240,6 +264,7 @@ public class View{
         System.out.println("(17) Cadastrar recepcionista");
         //pode colocar mais
         System.out.println("(18) Sair");
+        System.out.println("Digite o numero: ");
 
         int numero = sc.nextInt();
         if (numero < 1 || numero > 18) {
@@ -247,23 +272,23 @@ public class View{
             init();
         }
         switch (numero){
-            case 1: //r.verMeuSalario(); break;
+            case 1: r.verMeuSalario(); break;
             case 2: r.cadastrarAluno(); break;
-            case 3: //r.alterarDadosAluno(); break;
-            case 4: //r.fazerDenunciaAnonima(); break;
-            case 5: //r.cancelarVinculo(); break;
-            case 6: //r.deixarAvisoParaRecepcionista(); break;
-            case 7: //r.listarAlunos(); break;
-            case 8: //r.listarInstrutores(); break;
-            case 9: //r.listarRecepcionistas(); break;
-            case 10: //r.listarPlanos(); break;
-            case 11: //r.removerAluno(); break;
-            case 12: //r.removerInstrutor(); break;
-            case 13: //r.removerRecepcionista(); break;
-            case 14: //r.adicionarPlano(); break;
-            case 15: //r.excluirPlano(); break;
-            case 16: //r.cadastrarInstrutor(); break;
-            case 17: //r.cadastrarRecepcionista(); break;
+            case 3: r.alterarDadosAluno(); break;
+            case 4: r.fazerDenunciaAnonima(); break;
+            case 5: r.cancelarVinculo(); break;
+            case 6: r.deixarAvisoParaRecepcionista(); break;
+            case 7: r.listarAlunos(); break;
+            case 8: r.listarInstrutores(); break;
+            case 9: r.listarRecepcionistas(); break;
+            case 10: r.listarPlanos(); break;
+            case 11: r.removerAluno(); break;
+            case 12: r.removerInstrutor(); break;
+            case 13: r.removerRecepcionista(); break;
+            case 14: r.adicionarPlano(); break;
+            case 15: r.excluirPlano(); break;
+            case 16: r.cadastrarInstrutor(); break;
+            case 17: r.cadastrarRecepcionista(); break;
             case 18: fechar(); break;
         }
     }

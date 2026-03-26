@@ -4,11 +4,17 @@ import java.util.Random;
 import java.util.Scanner;
 import academus.modelo.Login;
 
+import academus.view.View;
+
 public class Aluno extends Pessoa{
 
     private String tipoDePlano;
     private String focoObjetivo; /// emagrecer, força, crescer
     private String restricao;
+
+    View view = new View();
+
+    Scanner sc = new Scanner(System.in);
 
     Random random = new Random();
     String mat = Integer.toString(super.getMatricula()) + "001" + Integer.toString(random.nextInt(90)+10);
@@ -65,6 +71,7 @@ public class Aluno extends Pessoa{
         } else {
             System.out.println("Plano: " + tipoDePlano);
         }
+        voltar();
     }
 
     public void verMeuTreino(){
@@ -74,6 +81,7 @@ public class Aluno extends Pessoa{
         } else {
             System.out.println(treino);
         }
+        voltar();
     }
 
     public void marcarTreinoComoFeito(){
@@ -83,6 +91,7 @@ public class Aluno extends Pessoa{
         } else {
             System.out.println("Treino marcado como feito! Bom trabalho!");
         }
+        voltar();
     }
 
     public void fazerDenunciaAnonima(){
@@ -91,6 +100,7 @@ public class Aluno extends Pessoa{
         System.out.print("Descreva a denuncia: ");
         String denuncia = sc.nextLine();
         System.out.println("Denuncia registrada com sucesso!");
+        voltar();
     }
 
     public void cancelarMatricula(){
@@ -106,6 +116,7 @@ public class Aluno extends Pessoa{
         } else {
             System.out.println("Seu plano e anual, nao possui vencimento mensal.");
         }
+        voltar();
     }
 
     public void fazerPagamento(){
@@ -116,6 +127,7 @@ public class Aluno extends Pessoa{
             statusPagamento = "pago";
             System.out.println("Pagamento realizado com sucesso! Status: pago");
         }
+        voltar();
     }
 
     public void verMatricula(){
@@ -127,6 +139,7 @@ public class Aluno extends Pessoa{
         System.out.println("Treino: " + (treino == null ? "Nao cadastrado" : treino));
         System.out.println("Foco/Objetivo: " + focoObjetivo);
         System.out.println("Restricao: " + restricao);
+        voltar();
     }
 
     public void alterarSenha(){
@@ -142,6 +155,13 @@ public class Aluno extends Pessoa{
         String novaSenha = sc.nextLine();
         setSenha(novaSenha);
         System.out.println("Senha alterada com sucesso!");
+        voltar();
+    }
+
+    private void voltar(){
+        System.out.println("Enter para voltar");
+        sc.nextLine();
+        view.menuAluno(this);
     }
 
     @Override
